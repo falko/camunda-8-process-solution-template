@@ -20,11 +20,14 @@ public class ProcessController {
 
     private final static Logger LOG = LoggerFactory.getLogger(ProcessController.class);
 
-    @Autowired
-    private ZeebeClient client;
+    private final ZeebeClient client;
 
-    @Autowired
-    private ZeebeClientJsonMapper mapper; // just for logging variables
+    private final ZeebeClientJsonMapper mapper; // just for logging variables
+
+    public ProcessController(ZeebeClient client, ZeebeClientJsonMapper mapper) {
+        this.client = client;
+        this.mapper = mapper;
+    }
 
     @PostMapping("/start")
     public void startProcessInstance(@RequestBody ProcessVariables variables) {

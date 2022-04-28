@@ -16,11 +16,14 @@ public class MyWorker {
 
   private final static Logger LOG = LoggerFactory.getLogger(MyWorker.class);
 
-  @Autowired
-  private ZeebeClientJsonMapper mapper; // just for logging variables
+  private final ZeebeClientJsonMapper mapper; // just for logging variables
 
-  @Autowired
-  private MyService myService;
+  private final MyService myService;
+
+  public MyWorker(ZeebeClientJsonMapper mapper, MyService myService) {
+    this.mapper = mapper;
+    this.myService = myService;
+  }
 
   @ZeebeWorker(type = "my-service", autoComplete = true)
   public ProcessVariables invokeMyService(@ZeebeVariablesAsType ProcessVariables variables) {
